@@ -1,40 +1,34 @@
-import { useState, useRef } from "react";
+import React, { useState, useRef } from "react";
 import { type Itodo } from "../../redux/slice";
 import { editTodo, removeTodo, toggleCompleted } from "../../redux/slice";
 import { useDispatch } from "react-redux";
 import { type AppDispatch } from "../../redux/store";
 
-interface todoItemProps extends Itodo {
-  isLast: boolean
-}
-
-function TodoItem({ todo, id, completed, isLast }: todoItemProps) {
-
+const TodoItem = React.memo(({ todo, id, completed }: Itodo) => {
   const [isTodoEditable, setIsTodoEditable] = useState(false);
   const [todoMsg, setTodoMsg] = useState(todo);
   const inputRef = useRef<HTMLInputElement>(null)
   const dispatch = useDispatch<AppDispatch>()
   const updateTodo = () => {
-    dispatch(editTodo(id,todoMsg))
+    dispatch(editTodo(id, todoMsg))
     setIsTodoEditable(false);
   }
   const deleteTodo = () => {
     dispatch(removeTodo(id))
 
   }
-
   const toggleCheck = () => {
     dispatch(toggleCompleted(id))
   }
 
-  const handleInput = (e: React.KeyboardEvent<HTMLInputElement>)=>{
-    if(e.key === "Enter"){
+  const handleInput = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter") {
       updateTodo()
     }
   }
 
   return (
-    <div className={`flex  ${isLast ? " " : "border-b-[#dddbd8] border-b-2"} px-3 py-1.5 gap-x-3 }`}>
+    <div className={"flex border-b-2 border-b-gray-300  px-3 py-1.5 gap-x-3 }"}>
       <input
         type="checkbox"
         className="cursor-pointer"
@@ -75,6 +69,7 @@ function TodoItem({ todo, id, completed, isLast }: todoItemProps) {
       </button>
     </div>
   );
-}
+});
+TodoItem.displayName = "TodoItem"
 
 export default TodoItem;

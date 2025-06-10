@@ -1,1 +1,5 @@
 @import "tailwindcss";
+
+.todo-list-container > div:last-child {
+    border-bottom: none;
+}
