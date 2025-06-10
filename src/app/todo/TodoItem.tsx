@@ -29,7 +29,7 @@ function TodoItem({ todo, id, completed, isLast }: todoItemProps) {
   }
 
   return (
-    <div className={`flex  ${isLast ? "border-b-0" : "border-b-2"} border-b-black/10 px-3 py-1.5 gap-x-3 }`}>
+    <div className={`flex  ${isLast ? " " : "border-b-[#dddbd8] border-b-2"} px-3 py-1.5 gap-x-3 }`}>
       <input
         type="checkbox"
         className="cursor-pointer"
