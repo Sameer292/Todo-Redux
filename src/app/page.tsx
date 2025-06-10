@@ -1,12 +1,10 @@
 "use client"
-// import { TodoProvider, useTodoContext } from "./context/TodoContext";
 import TodoInput from "./todo/TodoInput";
 import TodoList from "./todo/TodoList";
 import { Provider } from "react-redux";
 import { store } from "../redux/store.ts";
 export default function Home() {
   return (
-    // <TodoProvider>
     <Provider store={store}>
       < div className="flex flex-col items-center  min-h-screen bg-[#f6f4f0]" >
         <div className="w-full h-40 bg-[#7c7e73]" ></div>
@@ -18,6 +16,5 @@ export default function Home() {
         </div>
       </div >
     </Provider>
-    // </TodoProvider >
   );
 }
