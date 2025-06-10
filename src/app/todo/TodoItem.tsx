@@ -15,7 +15,7 @@ function TodoItem({ todo, id, completed, isLast }: todoItemProps) {
   const inputRef = useRef<HTMLInputElement>(null)
   const dispatch = useDispatch<AppDispatch>()
   const updateTodo = () => {
-    dispatch(editTodo(todoMsg))
+    dispatch(editTodo(id,todoMsg))
     setIsTodoEditable(false);
   }
   const deleteTodo = () => {
@@ -24,8 +24,13 @@ function TodoItem({ todo, id, completed, isLast }: todoItemProps) {
   }
 
   const toggleCheck = () => {
-    toggleCompleted(id);
     dispatch(toggleCompleted(id))
+  }
+
+  const handleInput = (e: React.KeyboardEvent<HTMLInputElement>)=>{
+    if(e.key === "Enter"){
+      updateTodo()
+    }
   }
 
   return (
@@ -42,6 +47,7 @@ function TodoItem({ todo, id, completed, isLast }: todoItemProps) {
           } ${completed ? "line-through " : ""}`}
         value={todoMsg}
         ref={inputRef}
+        onKeyDown={handleInput}
         onChange={(e) => setTodoMsg(e.target.value)}
         readOnly={!isTodoEditable}
       />
