@@ -1,9 +1,20 @@
 import { configureStore } from "@reduxjs/toolkit";
-import reducer from "./slice";
+import { doneTodoReducer } from "./DoneTodoSlice";
+import { onGoingTodoReducer } from "./OnGoingTodoSlice";
+import { yetToStartTodoReducer } from "./YetToStartTodoSlice";
+
+
+export enum Section {
+  YetToStart = "YetToStart",
+  OnGoing = "OnGoing",
+  Done = "Done",
+}
 
 export const store = configureStore({
   reducer: {
-    todo: reducer,
+    doneTodo: doneTodoReducer,
+    onGoingTodo: onGoingTodoReducer,
+    yetToStartTodo: yetToStartTodoReducer,
   },
 });
 

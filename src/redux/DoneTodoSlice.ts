@@ -1,4 +1,7 @@
 import { createSlice, PayloadAction, nanoid } from '@reduxjs/toolkit'
+import { useDispatch} from 'react-redux'
+import {  type AppDispatch } from './store'
+import { onGoingTodoActions, doneTodoActions, yetToStartTodoActions } from './exportActions'
 
 export interface Itodo {
   id: string
@@ -14,8 +17,9 @@ const initialState: TodoState = {
   todoList: [],
 }
 
-const todoSlice = createSlice({
-  name: 'todo',
+
+export const doneTodoSlice = createSlice({
+  name: "doneTodo",
   initialState,
   reducers: {
     addTodo: {
@@ -34,6 +38,11 @@ const todoSlice = createSlice({
     },
     removeTodo: (state, action: PayloadAction<string>) => {
       state.todoList = state.todoList.filter(todo => todo.id !== action.payload)
+    },
+    removeAllTodo: (state) => {
+      state.todoList = []
+      console.log("CLeared");
+      
     },
     editTodo: {
       reducer: (state, action: PayloadAction<Itodo>) => {
@@ -61,5 +70,9 @@ const todoSlice = createSlice({
   },
 })
 
-export const { addTodo, removeTodo, editTodo, toggleCompleted } = todoSlice.actions
-export default todoSlice.reducer
+
+export const doneTodoReducer = doneTodoSlice.reducer
+
+// export const doneTodoActions = doneTodoSlice.actions
+// export const onGoingTodoActions = onGoingTodoSlice.actions
+// export const yetToStartTodoActions = yetToStartTodoSlice.actions

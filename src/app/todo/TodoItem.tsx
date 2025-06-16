@@ -1,24 +1,37 @@
 import React, { useState, useRef } from "react";
-import { type Itodo } from "../../redux/slice";
-import { editTodo, removeTodo, toggleCompleted } from "../../redux/slice";
+import { type Itodo } from "../../redux/DoneTodoSlice";
+import { type AppDispatch, Section as EnumSection } from "../../redux/store";
 import { useDispatch } from "react-redux";
-import { type AppDispatch } from "../../redux/store";
 
-const TodoItem = React.memo(({ todo, id, completed }: Itodo) => {
-  const [isTodoEditable, setIsTodoEditable] = useState(false);
-  const [todoMsg, setTodoMsg] = useState(todo);
-  const inputRef = useRef<HTMLInputElement>(null)
+interface Props extends Itodo {
+  actions: {
+    removeTodo: (id: string) => any,
+    editTodo: (id: string, todo: string) => any
+    toggleCompleted: (id: string) => any
+  },
+  changeAction?: {
+    addTodo: (todo: string) => any
+  },
+  Section: EnumSection
+}
+
+const TodoItem = React.memo(({ todo, id, completed, actions, changeAction, Section }: Props) => {
   const dispatch = useDispatch<AppDispatch>()
+  const [isTodoEditable, setIsTodoEditable] = useState<boolean>(false);
+  const [todoMsg, setTodoMsg] = useState<string>(todo);
+  const inputRef = useRef<HTMLInputElement>(null)
+
   const updateTodo = () => {
-    dispatch(editTodo(id, todoMsg))
+    dispatch(actions.editTodo(id, todoMsg))
     setIsTodoEditable(false);
   }
   const deleteTodo = () => {
-    dispatch(removeTodo(id))
+    dispatch(actions.removeTodo(id))
 
   }
-  const toggleCheck = () => {
-    dispatch(toggleCompleted(id))
+  const handleChangeAction = () => {
+    dispatch(actions.removeTodo(id))
+    dispatch(changeAction?.addTodo(todoMsg))
   }
 
   const handleInput = (e: React.KeyboardEvent<HTMLInputElement>) => {
@@ -28,13 +41,9 @@ const TodoItem = React.memo(({ todo, id, completed }: Itodo) => {
   }
 
   return (
-    <div className={"flex border-b-2 border-b-gray-300  px-3 py-1.5 gap-x-3 }"}>
-      <input
-        type="checkbox"
-        className="cursor-pointer"
-        checked={completed}
-        onChange={toggleCheck}
-      />
+    <div className="flex border-b-2 border-b-gray-300  px-3 py-1.5 gap-x-3">
+      {Section === EnumSection.YetToStart ? <button onClick={handleChangeAction} className="bg-blue-700 text-white rounded-md px-1" >Start</button> : Section === EnumSection.OnGoing && <button onClick={handleChangeAction} className="bg-green-700 text-white rounded-md px-1" >Done</button> 
+      }
       <input
         type="text"
         className={`border-2 text-black outline-none w-full rounded-lg truncate ${isTodoEditable ? "border-gray-400 px-2" : "border-transparent"
