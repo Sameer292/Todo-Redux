@@ -1,10 +1,8 @@
 import TodoItem from "./TodoItem"
-import { useSelector } from "react-redux"
-import { RootState } from "../../redux/store"
-import { yetToStartTodoActions } from "@/redux/exportActions"
-import { onGoingTodoActions } from "@/redux/exportActions"
-import { useDispatch } from "react-redux"
-import { AppDispatch, Section } from "../../redux/store"
+import { useSelector, useDispatch } from "react-redux"
+import { type RootState, type AppDispatch, Section } from "../../redux/store"
+import { yetToStartTodoActions, onGoingTodoActions  } from "@/redux/exportActions"
+
 const YetToStartTodoList = () => {
     const dispatch = useDispatch<AppDispatch>()
     const todoList = useSelector((state: RootState) => state.yetToStartTodo.todoList)
@@ -16,7 +14,6 @@ const YetToStartTodoList = () => {
                     Clear
                 </button>
             </div>
-
             {
                 todoList.length === 0 ? <div className="h-11 text-center sm:w-[22rem] content-center " >Empty List</div> :
                     todoList.map((todo, _) => (

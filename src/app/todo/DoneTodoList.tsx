@@ -1,9 +1,8 @@
 import TodoItem from "./TodoItem"
-import { useSelector } from "react-redux"
-import { RootState, Section } from "../../redux/store"
+import { useDispatch, useSelector } from "react-redux"
+import { type AppDispatch,type RootState, Section } from "../../redux/store"
 import { doneTodoActions } from "@/redux/exportActions"
-import { useDispatch } from "react-redux"
-import { AppDispatch } from "../../redux/store"
+
 const DoneTodoList = () => {
   const dispatch = useDispatch<AppDispatch>()
   const todoList = useSelector((state: RootState) => state.doneTodo.todoList)

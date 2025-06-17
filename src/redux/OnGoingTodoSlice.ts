@@ -1,8 +1,4 @@
 import { createSlice, PayloadAction, nanoid } from '@reduxjs/toolkit'
-import { useDispatch } from 'react-redux'
-import { type AppDispatch } from './store'
-import { doneTodoActions } from './exportActions'
-
 
 export interface Itodo {
     id: string
@@ -18,9 +14,7 @@ const initialState: TodoState = {
     todoList: [],
 }
 
-
 const createOnGoingTodoSlice = () => {
-    // const dispatch = useDispatch<AppDispatch>()
 
     return createSlice({
         name: 'onGoingTodo',
@@ -45,8 +39,6 @@ const createOnGoingTodoSlice = () => {
             },
             removeAllTodo: (state) => {
                 state.todoList = []
-                console.log("CLeared");
-
             },
             editTodo: {
                 reducer: (state, action: PayloadAction<Itodo>) => {
@@ -63,20 +55,6 @@ const createOnGoingTodoSlice = () => {
                             completed: false
                         }
                     }
-                }
-            },
-            // toggleCompleted: (state, action: PayloadAction<string>) => {
-            //     const todo = state.todoList.find(todo => todo.id === action.payload)
-            //     if (todo) {
-            //         state.todoList.splice(state.todoList.indexOf(todo), 1)
-            //         todo.completed = !todo.completed
-            //         dispatch(doneTodoActions.addTodo(todo.todo))
-            //     }
-            // },
-            toggleCompleted: (state, action: PayloadAction<string>) => {
-                const todo = state.todoList.find(todo => todo.id === action.payload)
-                if (todo) {
-                    todo.completed = !todo.completed
                 }
             },
         },

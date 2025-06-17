@@ -7,7 +7,6 @@ interface Props extends Itodo {
   actions: {
     removeTodo: (id: string) => any,
     editTodo: (id: string, todo: string) => any
-    toggleCompleted: (id: string) => any
   },
   changeAction?: {
     addTodo: (todo: string) => any
@@ -63,7 +62,6 @@ const TodoItem = React.memo(({ todo, id, completed, actions, changeAction, Secti
           } else {
             setIsTodoEditable((prev) => !prev);
             inputRef.current?.focus();
-
           }
         }}
         disabled={completed}
@@ -79,6 +77,5 @@ const TodoItem = React.memo(({ todo, id, completed, actions, changeAction, Secti
     </div>
   );
 });
-TodoItem.displayName = "TodoItem"
 
 export default TodoItem;
