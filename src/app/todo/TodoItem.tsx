@@ -16,13 +16,13 @@ interface Props extends Itodo {
 
 const TodoItem = React.memo(({ todo, id, actions, changeAction, Section }: Props) => {
   const dispatch = useDispatch<AppDispatch>()
-  const [isTodoEditable, setIsTodoEditable] = useState<boolean>(false);
+  const [IsTodoEditing, setIsTodoEditing] = useState<boolean>(false);
   const [todoMsg, setTodoMsg] = useState<string>(todo);
   const inputRef = useRef<HTMLInputElement>(null)
 
   const updateTodo = () => {
     dispatch(actions.editTodo(id, todoMsg))
-    setIsTodoEditable(false);
+    setIsTodoEditing((prev)=>!prev);
   }
   const deleteTodo = () => {
     dispatch(actions.removeTodo(id))
@@ -45,27 +45,26 @@ const TodoItem = React.memo(({ todo, id, actions, changeAction, Section }: Props
       }
       <input
         type="text"
-        className={`border-2 text-black outline-none w-full rounded-lg truncate ${isTodoEditable ? "border-gray-400 px-2" : "border-transparent"
+        className={`border-2 text-black outline-none w-full rounded-lg truncate ${IsTodoEditing ? "border-gray-400 px-2" : "border-transparent"
           } `}
         value={todoMsg}
         ref={inputRef}
         onKeyDown={handleInput}
         onChange={(e) => setTodoMsg(e.target.value)}
-        readOnly={!isTodoEditable}
+        readOnly={!IsTodoEditing}
       />
       <button
         className="w-8 h-8 rounded-lg text-sm border border-black/10 justify-center items-center bg-gray-50 hover:bg-gray-100 shrink-0 disabled:opacity-50"
         onClick={() => {
-          if (isTodoEditable) {
+          if (IsTodoEditing){
             updateTodo();
           } else {
-            setIsTodoEditable((prev) => !prev);
+            setIsTodoEditing(true);
             inputRef.current?.focus();
           }
         }}
-        disabled={!isTodoEditable}
       >
-        {isTodoEditable ? "📁" : "✏️"}
+        {IsTodoEditing ? "📁" : "✏️"}
       </button>
       <button
         className="inline-flex w-8 h-8 rounded-lg text-sm border border-black/10 justify-center items-center bg-gray-50 hover:bg-gray-100 shrink-0"

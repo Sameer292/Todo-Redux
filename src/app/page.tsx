@@ -10,7 +10,7 @@ export default function Home() {
   return (
     <Provider store={store}>
       <div className="flex flex-col items-center  min-h-screen bg-[#f6f4f0]" >
-        <div className="w-full h-40 bg-[#7c7e73] flex flex-col items-end pt-3 pr-36 " >
+        <div className="w-full h-40 bg-[#7c7e73] flex flex-col items-end pt-3 pr-6 " >
           <TodoCount />
         </div>
         <div className=" lg:w-[40%] w-[calc(100%-3rem)] h-auto shadow-lg rounded-lg p-3 -mt-17 bg-[#f6f4f0] ">
