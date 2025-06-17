@@ -1,11 +1,5 @@
 import { createSlice, PayloadAction, nanoid } from '@reduxjs/toolkit'
-
-export interface Itodo {
-  id: string
-  todo: string
-  completed: boolean
-}
-
+import { type Itodo } from './store'
 interface TodoState {
   todoList: Itodo[]
 }
@@ -14,8 +8,8 @@ const initialState: TodoState = {
   todoList: [],
 }
 
-const todoSlice = createSlice({
-  name: 'todo',
+export const doneTodoSlice = createSlice({
+  name: "doneTodo",
   initialState,
   reducers: {
     addTodo: {
@@ -27,7 +21,6 @@ const todoSlice = createSlice({
           payload: {
             id: nanoid(),
             todo: text,
-            completed: false
           }
         }
       }
@@ -35,11 +28,14 @@ const todoSlice = createSlice({
     removeTodo: (state, action: PayloadAction<string>) => {
       state.todoList = state.todoList.filter(todo => todo.id !== action.payload)
     },
+    removeAllTodo: (state) => {
+      state.todoList = []      
+    },
     editTodo: {
       reducer: (state, action: PayloadAction<Itodo>) => {
         const index = state.todoList.findIndex(todo => todo.id === action.payload.id)
         if (index !== -1) {
-          state.todoList[index] = action.payload
+          state.todoList[index].todo = action.payload.todo
         }
       },
       prepare: (id: string, text: string): { payload: Itodo } => {
@@ -47,19 +43,11 @@ const todoSlice = createSlice({
           payload: {
             id: id,
             todo: text,
-            completed: false
           }
         }
-      }
-    },
-    toggleCompleted: (state, action: PayloadAction<string>) => {
-      const todo = state.todoList.find(todo => todo.id === action.payload)
-      if (todo) {
-        todo.completed = !todo.completed
       }
     },
   },
 })
 
-export const { addTodo, removeTodo, editTodo, toggleCompleted } = todoSlice.actions
-export default todoSlice.reducer
+export const doneTodoReducer = doneTodoSlice.reducer
