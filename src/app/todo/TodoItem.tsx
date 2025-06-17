@@ -1,5 +1,5 @@
 import React, { useState, useRef } from "react";
-import { type Itodo } from "../../redux/DoneTodoSlice";
+import { type Itodo } from "../../redux/store";
 import { type AppDispatch, Section as EnumSection } from "../../redux/store";
 import { useDispatch } from "react-redux";
 
@@ -14,7 +14,7 @@ interface Props extends Itodo {
   Section: EnumSection
 }
 
-const TodoItem = React.memo(({ todo, id, completed, actions, changeAction, Section }: Props) => {
+const TodoItem = React.memo(({ todo, id, actions, changeAction, Section }: Props) => {
   const dispatch = useDispatch<AppDispatch>()
   const [isTodoEditable, setIsTodoEditable] = useState<boolean>(false);
   const [todoMsg, setTodoMsg] = useState<string>(todo);
@@ -46,7 +46,7 @@ const TodoItem = React.memo(({ todo, id, completed, actions, changeAction, Secti
       <input
         type="text"
         className={`border-2 text-black outline-none w-full rounded-lg truncate ${isTodoEditable ? "border-gray-400 px-2" : "border-transparent"
-          } ${completed ? "line-through " : ""}`}
+          } `}
         value={todoMsg}
         ref={inputRef}
         onKeyDown={handleInput}
@@ -56,7 +56,6 @@ const TodoItem = React.memo(({ todo, id, completed, actions, changeAction, Secti
       <button
         className="w-8 h-8 rounded-lg text-sm border border-black/10 justify-center items-center bg-gray-50 hover:bg-gray-100 shrink-0 disabled:opacity-50"
         onClick={() => {
-          if (completed) return;
           if (isTodoEditable) {
             updateTodo();
           } else {
@@ -64,7 +63,7 @@ const TodoItem = React.memo(({ todo, id, completed, actions, changeAction, Secti
             inputRef.current?.focus();
           }
         }}
-        disabled={completed}
+        disabled={!isTodoEditable}
       >
         {isTodoEditable ? "📁" : "✏️"}
       </button>

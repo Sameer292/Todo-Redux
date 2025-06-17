@@ -9,6 +9,11 @@ export enum Section {
   Done = "Done",
 }
 
+export interface Itodo {
+    id: string
+    todo: string
+}
+
 export const store = configureStore({
   reducer: {
     doneTodo: doneTodoReducer,

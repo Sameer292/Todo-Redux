@@ -1,10 +1,5 @@
 import { createSlice, PayloadAction, nanoid } from '@reduxjs/toolkit'
-
-export interface Itodo {
-    id: string
-    todo: string
-    completed: boolean
-}
+import { type Itodo } from './store'
 
 interface TodoState {
     todoList: Itodo[]
@@ -27,7 +22,6 @@ export const yetToStartTodoSlice = createSlice({
                     payload: {
                         id: nanoid(),
                         todo: text,
-                        completed: false
                     }
                 }
             }
@@ -42,7 +36,7 @@ export const yetToStartTodoSlice = createSlice({
             reducer: (state, action: PayloadAction<Itodo>) => {
                 const index = state.todoList.findIndex(todo => todo.id === action.payload.id)
                 if (index !== -1) {
-                    state.todoList[index] = action.payload
+                    state.todoList[index].todo = action.payload.todo
                 }
             },
             prepare: (id: string, text: string): { payload: Itodo } => {
@@ -50,7 +44,6 @@ export const yetToStartTodoSlice = createSlice({
                     payload: {
                         id: id,
                         todo: text,
-                        completed: false
                     }
                 }
             }

@@ -17,7 +17,7 @@ const YetToStartTodoList = () => {
             {
                 todoList.length === 0 ? <div className="h-11 text-center sm:w-[22rem] content-center " >Empty List</div> :
                     todoList.map((todo, _) => (
-                        <TodoItem key={todo.id} actions={yetToStartTodoActions} Section={Section.YetToStart} todo={todo.todo} changeAction={onGoingTodoActions} completed={todo.completed} id={todo.id} />
+                        <TodoItem key={todo.id} actions={yetToStartTodoActions} Section={Section.YetToStart} todo={todo.todo} changeAction={onGoingTodoActions} id={todo.id} />
                     ))
             }
         </div>
