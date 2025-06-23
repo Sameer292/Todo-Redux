@@ -10,9 +10,23 @@ export enum Section {
 }
 
 export interface Itodo {
-    id: string
-    todo: string
+  id: string
+  todo: string
 }
+export type user = {
+  id: string,
+  name: string,
+  email: string,
+  password: string,
+  gender: string,
+  dob: string,
+  todos: {
+    yetToStart: Itodo[],
+    onGoing: Itodo[],
+    done: Itodo[]
+  }
+}
+
 
 export const store = configureStore({
   reducer: {

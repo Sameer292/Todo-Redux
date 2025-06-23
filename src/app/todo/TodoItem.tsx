@@ -1,6 +1,5 @@
 import React, { useState, useRef } from "react";
-import { type Itodo } from "../../redux/store";
-import { type AppDispatch, Section as EnumSection } from "../../redux/store";
+import { type Itodo, type AppDispatch, Section as EnumSection } from "../../redux/store";
 import { useDispatch } from "react-redux";
 
 interface Props extends Itodo {
@@ -40,7 +39,7 @@ const TodoItem = React.memo(({ todo, id, actions, changeAction, Section }: Props
   }
 
   return (
-    <div className="flex border-b-2 border-b-gray-300  px-3 py-1.5 gap-x-3">
+    <div className="flex  border-b-2 border-b-gray-300  px-3 py-1.5 gap-x-3">
       {Section === EnumSection.YetToStart ? <button onClick={handleChangeAction} className="bg-blue-700 text-white rounded-md px-1" >Start</button> : Section === EnumSection.OnGoing && <button onClick={handleChangeAction} className="bg-green-700 text-white rounded-md px-1" >Done</button> 
       }
       <input
