@@ -1,11 +1,17 @@
 import TodoItem from "./TodoItem"
 import { useDispatch, useSelector } from "react-redux"
-import { type AppDispatch, Section, type RootState } from "../../redux/store"
+import { type AppDispatch, Section, type RootState, type Itodo, type user } from "../../redux/store"
 import { doneTodoActions, onGoingTodoActions } from "@/redux/exportActions"
-
+import { useEffect } from "react"
 const OnGoingTodoList = () => {
     const dispatch = useDispatch<AppDispatch>()
-    const todoList = useSelector((state: RootState) => state.onGoingTodo.todoList)
+    useEffect(() => {
+        const currentUser: user = JSON.parse(localStorage.getItem("currentUser") || "null")
+        const todos = currentUser?.todos?.onGoing || []
+        dispatch(onGoingTodoActions.hydrateFromLocal(todos))
+    }, [])
+    const todoList: Itodo[] = useSelector((state: RootState) => state.onGoingTodo.todoList)
+
     return (
         <div className='todo-list-container flex flex-wrap text-center shadow-lg flex-col min-h-10 overflow-hidden md:w-96 justify-center  border-2 rounded-md border-blue-700 '>
             <div className="flex justify-between px-3 pt-1">
