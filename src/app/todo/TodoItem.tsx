@@ -1,14 +1,15 @@
 import React, { useState, useRef } from "react";
 import { type Itodo, type AppDispatch, Section as EnumSection } from "../../redux/store";
 import { useDispatch } from "react-redux";
+import { UnknownAction } from "@reduxjs/toolkit";
 
 interface Props extends Itodo {
   actions: {
-    removeTodo: (id: string) => any,
-    editTodo: (id: string, todo: string) => any
+    removeTodo: (id: string) => UnknownAction,
+    editTodo: (id: string, todo: string) => UnknownAction
   },
   changeAction?: {
-    addTodo: (todo: string) => any
+    addTodo: (todo: string) => UnknownAction
   },
   Section: EnumSection
 }
@@ -21,15 +22,17 @@ const TodoItem = ({ todo, id, actions, changeAction, Section }: Props) => {
 
   const updateTodo = () => {
     dispatch(actions.editTodo(id, todoMsg))
-    setIsTodoEditing((prev)=>!prev);
+    setIsTodoEditing((prev) => !prev);
   }
   const deleteTodo = () => {
     dispatch(actions.removeTodo(id))
 
   }
   const handleChangeAction = () => {
-    dispatch(actions.removeTodo(id))
-    dispatch(changeAction?.addTodo(todoMsg))
+    if (changeAction) {
+      dispatch(actions.removeTodo(id))
+      dispatch(changeAction.addTodo(todoMsg))
+    }
   }
 
   const handleInput = (e: React.KeyboardEvent<HTMLInputElement>) => {
@@ -40,7 +43,7 @@ const TodoItem = ({ todo, id, actions, changeAction, Section }: Props) => {
 
   return (
     <div className="flex  border-b-2 border-b-gray-300  px-3 py-1.5 gap-x-3">
-      {Section === EnumSection.YetToStart ? <button onClick={handleChangeAction} className="bg-blue-700 text-white rounded-md px-1" >Start</button> : Section === EnumSection.OnGoing && <button onClick={handleChangeAction} className="bg-green-700 text-white rounded-md px-1" >Done</button> 
+      {Section === EnumSection.YetToStart ? <button onClick={handleChangeAction} className="bg-blue-700 text-white rounded-md px-1" >Start</button> : Section === EnumSection.OnGoing && <button onClick={handleChangeAction} className="bg-green-700 text-white rounded-md px-1" >Done</button>
       }
       <input
         type="text"
@@ -55,7 +58,7 @@ const TodoItem = ({ todo, id, actions, changeAction, Section }: Props) => {
       <button
         className="w-8 h-8 rounded-lg text-sm border border-black/10 justify-center items-center bg-gray-50 hover:bg-gray-100 shrink-0 disabled:opacity-50"
         onClick={() => {
-          if (IsTodoEditing){
+          if (IsTodoEditing) {
             updateTodo();
           } else {
             setIsTodoEditing(true);

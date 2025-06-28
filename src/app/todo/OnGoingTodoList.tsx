@@ -13,7 +13,7 @@ const OnGoingTodoList = () => {
     const todoList: Itodo[] = useSelector((state: RootState) => state.onGoingTodo.todoList)
 
     return (
-        <div className='todo-list-container flex flex-wrap text-center shadow-lg flex-col min-h-10 overflow-hidden md:w-96 justify-center  border-2 rounded-md border-blue-700 '>
+        <div className='todo-list-container flex flex-wrap text-center shadow-lg flex-col min-h-10 overflow-hidden sm:w-96 justify-center  border-2 rounded-md border-blue-700 '>
             <div className="flex justify-between px-3 pt-1">
                 <h2 className="text-center font-bold text-blue-700" >On Going</h2>
                 <button className="  w-10 flex items-center justify-center border-1 border-black rounded-md px-2 py-1  bg-red-700 text-xs font-bold text-white" onClick={() => dispatch(onGoingTodoActions.removeAllTodo())} >

@@ -1,5 +1,5 @@
 "use client"
-import TodoInput from "./todo/TodoInput";
+import TodoInput from "./todo/TodoInput.tsx";
 import { Provider } from "react-redux";
 import { store, type user } from "../redux/store.ts";
 import DoneTodoList from "./todo/DoneTodoList.tsx";

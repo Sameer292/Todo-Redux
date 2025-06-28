@@ -66,7 +66,7 @@ const Page = () => {
                 </div>
                 <div className='flex justify-center mt-2'>
                     <span className='text-gray-600'>
-                        Don't have an account?
+                        Don&apos;t have an account?
                         <Link href="/signUp" className='text-[#77BFA3] font-bold' > Sign Up</Link>
                     </span>
 
