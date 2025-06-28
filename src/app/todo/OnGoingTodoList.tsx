@@ -9,7 +9,7 @@ const OnGoingTodoList = () => {
         const currentUser: user = JSON.parse(localStorage.getItem("currentUser") || "null")
         const todos = currentUser?.todos?.onGoing || []
         dispatch(onGoingTodoActions.hydrateFromLocal(todos))
-    }, [])
+    }, [dispatch])
     const todoList: Itodo[] = useSelector((state: RootState) => state.onGoingTodo.todoList)
 
     return (
@@ -22,7 +22,7 @@ const OnGoingTodoList = () => {
             </div>
             {
                 todoList.length === 0 ? <div className="h-11 sm:w-[22rem] text-center content-center" >Empty List</div> :
-                    todoList.map((todo, _) => (
+                    todoList.map((todo) => (
                         <TodoItem key={todo.id} todo={todo.todo} actions={onGoingTodoActions} Section={Section.OnGoing} changeAction={doneTodoActions} id={todo.id} />
                     ))
             }

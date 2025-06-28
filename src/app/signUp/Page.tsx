@@ -9,7 +9,7 @@ import { v4 as uuidv4 } from 'uuid';
 import { type user } from '@/redux/store'
 
 
-const page = () => {
+const Page = () => {
 
     const router = useRouter()
     useEffect(() => {
@@ -17,7 +17,7 @@ const page = () => {
         if (currentUser) {
             router.push('/')
         }
-    }, [])
+    }, [router])
 
 
     const { register, handleSubmit, formState: { errors }, control } = useForm<user>()
@@ -113,4 +113,4 @@ const page = () => {
     )
 }
 
-export default page
+export default Page

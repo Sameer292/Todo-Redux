@@ -10,7 +10,7 @@ const YetToStartTodoList = () => {
         const currentUser: user = JSON.parse(localStorage.getItem("currentUser") || "null")
         const todos = currentUser?.todos?.yetToStart || []
         dispatch(yetToStartTodoActions.hydrateFromLocal(todos))
-    }, [])
+    }, [dispatch])
     const todoList: Itodo[] = useSelector((state: RootState) => state.yetToStartTodo.todoList)
 
     return (
@@ -23,7 +23,7 @@ const YetToStartTodoList = () => {
             </div>
             {
                 todoList.length === 0 ? <div className="h-11 text-center sm:w-[22rem] content-center " >Empty List</div> :
-                    todoList.map((todo, _) => (
+                    todoList.map((todo) => (
                         <TodoItem key={todo.id} actions={yetToStartTodoActions} Section={Section.YetToStart} todo={todo.todo} changeAction={onGoingTodoActions} id={todo.id} />
                     ))
             }

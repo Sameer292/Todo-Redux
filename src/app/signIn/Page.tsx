@@ -2,11 +2,11 @@
 import React, { useEffect } from 'react'
 import { RiUserAddFill } from 'react-icons/ri'
 import Link from 'next/link'
-import { useForm, SubmitHandler, Controller } from 'react-hook-form'
+import { useForm, SubmitHandler} from 'react-hook-form'
 import { useRouter } from 'next/navigation'
 import { type user } from '@/redux/store'
 
-const page = () => {
+const Page = () => {
 
     const router = useRouter()
     useEffect(() => {
@@ -14,7 +14,7 @@ const page = () => {
         if (currentUser) {
             router.push('/')
         }
-    }, [])
+    }, [router])
 
 
     const { register, handleSubmit, formState: { errors }    } = useForm<user>()
@@ -76,4 +76,4 @@ const page = () => {
     )
 }
 
-export default page
+export default Page

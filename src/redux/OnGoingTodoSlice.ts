@@ -37,7 +37,7 @@ const createOnGoingTodoSlice = () => {
                             return user
                         })
                         localStorage.setItem("users", JSON.stringify(updatedUsers))
-                        const updatedCurrent = updatedUsers.find((u: any) => u.id === currentUser.id)
+                        const updatedCurrent = updatedUsers.find((u: user) => u.id === currentUser.id)
                         localStorage.setItem("currentUser", JSON.stringify(updatedCurrent))
                     }
                 },

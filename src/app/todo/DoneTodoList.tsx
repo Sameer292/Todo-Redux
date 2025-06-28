@@ -10,7 +10,7 @@ const DoneTodoList = () => {
     const currentUser: user = JSON.parse(localStorage.getItem("currentUser") || "null")
     const todos = currentUser?.todos?.done || []
     dispatch(doneTodoActions.hydrateFromLocal(todos))
-  }, [])
+  }, [dispatch])
   const todoList: Itodo[] = useSelector((state: RootState) => state.doneTodo.todoList)
 
   return (
@@ -23,7 +23,7 @@ const DoneTodoList = () => {
       </div>
       {
         todoList.length === 0 ? <div className=" h-11 sm:w-[22rem]  text-center content-center ">Empty List</div> :
-          todoList.map((todo, _) => (
+          todoList.map((todo) => (
             <TodoItem key={todo.id} todo={todo.todo} actions={doneTodoActions} Section={Section.Done} id={todo.id} />
           ))
       }

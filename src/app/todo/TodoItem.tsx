@@ -13,7 +13,7 @@ interface Props extends Itodo {
   Section: EnumSection
 }
 
-const TodoItem = React.memo(({ todo, id, actions, changeAction, Section }: Props) => {
+const TodoItem = ({ todo, id, actions, changeAction, Section }: Props) => {
   const dispatch = useDispatch<AppDispatch>()
   const [IsTodoEditing, setIsTodoEditing] = useState<boolean>(false);
   const [todoMsg, setTodoMsg] = useState<string>(todo);
@@ -73,6 +73,6 @@ const TodoItem = React.memo(({ todo, id, actions, changeAction, Section }: Props
       </button>
     </div>
   );
-});
+};
 
-export default TodoItem;
+export default React.memo(TodoItem);
